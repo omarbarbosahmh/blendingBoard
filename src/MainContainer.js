@@ -1,10 +1,12 @@
 import Container from "./Container";
 import {useState} from 'react'
-export default function MainContainer({lettersConfig,style}) {
+export default function MainContainer({lettersConfig,style,emitChoosePreset}) {
  let [lettersArray,setLettersArray] = useState([...lettersConfig])
  let [selectedLetters,setSelectedLetters] = useState([])
  let [wordDisplayed,setWordDisplayed] = useState([])
  let [wordHistory,setWordHistory]= useState([])
+  let [presets ,setPresets]=useState(!JSON.parse(localStorage.getItem('presets'))?[]:JSON.parse(localStorage.getItem('presets')))
+let [selectedPreset ,setSelectedPreset]=useState(localStorage.getItem('selectedPreset'));
  let onLetterClick= (letter,index)=>{
  
   
@@ -30,12 +32,27 @@ setWordHistory([...wordHistory,cloneWordDisplayed.join('')])
   
  
  }
+ 
+ let choosePreset=(preset)=>{
+   setSelectedPreset(preset)
+   emitChoosePreset(preset)
+   let lettersArray= JSON.parse(localStorage.getItem(preset))
+  
+setLettersArray(lettersArray.transformed)
+  
+ 
+  
+ }
  return <div style={style? style:{}}>
+    <select name="preset" value={selectedPreset} onChange={(e)=>choosePreset(e.target.value)}>
+             <option value={'Default'}>Default</option>
+             {presets.map(preset=><option value={preset}>{preset}</option>)}
+            </select>
    <div style={{textAlign:'center',fontWeight:'600',fontSize:"80px"}}>
     
      {wordDisplayed.length === 0 || wordDisplayed.join() ===''  ? 'Start Typing...':wordDisplayed.join('')}
    </div>
-   <div style={{margin:"20px"}}>
+   <div style={{margin:"20px",height:"78vh", overflowY:"auto"}}>
  
 <div style={{ width:'90%', float:"left",textAlign:'center'}}>
 <div style={{display: 'inline-block'}}>
@@ -56,7 +73,7 @@ setWordHistory([...wordHistory,cloneWordDisplayed.join('')])
    
 </div>
 <div style={{   float:"left",display: 'inline-block'}}>
-  {[...wordHistory].reverse().map(word=>{return <p style={{fontWeight:'600', fontSize:'30px'}}>{word}</p>})}
+   {[...wordHistory].reverse().map(word=>{return <p style={{fontWeight:'600', fontSize:'30px'}}>{word}</p>})}
 </div>
 <div style={{clear:'both'}}></div>
    </div>
@@ -65,3 +82,5 @@ setWordHistory([...wordHistory,cloneWordDisplayed.join('')])
    
  </div>
 }
+ 
+
