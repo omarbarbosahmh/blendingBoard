@@ -20,13 +20,13 @@ childRef.current.choosePresetExternal(presset)
      </div>}
  <div style={{margin:'20px auto', width:'70%'}} >
    <div style={{display:'inline-block'}}>
-     <img src="/assets/question.png" alt="question" width='50px'></img>
+     <img src="https://omarbarbosahmh.github.io/blendingboard/assets/question.png" alt="question" width='50px'></img>
      </div>
   {selectedScreen==='MainContainer' && <div style={{float:'right',display:'inline-block',cursor:"pointer"}}  onClick={()=>setSelectedScreen("SelectionContainer")}>
-     <img src="/assets/burguer.png" alt="burguer icon" width="50px"></img>
+     <img src="https://omarbarbosahmh.github.io/blendingboard/assets/burguer.png" alt="burguer icon" width="50px"></img>
      </div>}
       {selectedScreen==='SelectionContainer' && <div style={{float:'right',display:'inline-block',cursor:"pointer"}} onClick={()=>setSelectedScreen("MainContainer")}>
-     <img src="/assets/check.png" alt="burguer icon" width="50px"></img>
+     <img src="https://omarbarbosahmh.github.io/blendingboard/assets/check.png" alt="burguer icon" width="50px"></img>
      </div>}
  
      <div style={{clear:'both'}}>
