@@ -74,10 +74,34 @@ return letterArrayObj
  
         let cloneLettersArray = [...lettersArray]
      
-   if( cloneLettersArray.[index].selectedLetters.length === [... cloneLettersArray.[index].letters].length){
+   if( cloneLettersArray.[index].selectedLetters.length === [...cloneLettersArray.[index].letters].length){
 cloneLettersArray.[index].selectedLetters =[]
    }else{
-     cloneLettersArray.[index].selectedLetters = [... cloneLettersArray.[index].letters]
+     cloneLettersArray.[index].selectedLetters = [...cloneLettersArray.[index].letters]
+   }
+ 
+    console.log(index)
+    console.log(cloneLettersArray.[index])
+   
+ 
+        setSelectedLetters(cloneLettersArray)
+        emitAllLetters(cloneLettersArray)
+        //alert(JSON.stringify( cloneLettersArray[index].selectedLetters))
+       emitSelectedLettersByColor(cloneLettersArray[index].color,cloneLettersArray[index].selectedLetters,cloneLettersArray[index].letters)
+          //getSelectedAllOrNoneLettersByColor('all')
+ }
+ 
+ let selectByIndexAndSubCategory= (index,subCategoryLetters)=>{
+ 
+        let cloneLettersArray = [...lettersArray]
+     
+ if( subCategoryLetters.every(letter=>cloneLettersArray.[index].selectedLetters.some(letter2=>letter2===letter))){
+cloneLettersArray.[index].selectedLetters =[...cloneLettersArray.[index].selectedLetters.filter(letter=>!subCategoryLetters.some(letter2=>letter2===letter))]
+   }else{
+     let arraySelectedLetters= [...cloneLettersArray.[index].selectedLetters,...subCategoryLetters]
+      arraySelectedLetters= new Set(arraySelectedLetters)
+  arraySelectedLetters=Array.from(arraySelectedLetters)
+     cloneLettersArray.[index].selectedLetters = [...arraySelectedLetters]
    }
  
     console.log(index)
@@ -119,28 +143,31 @@ var returnedFunction = debounce(function() {
 }, 500);
  
 window.addEventListener('resize', returnedFunction)})
- return <div key={uniqueId}>
-   <div id={'container-'+uniqueId} style={{margin:"20px",position: 'relative'}}>
+ return <div key={uniqueId} style={{marginBottom:"24px"}}>
+   <div id={'container-'+uniqueId} style={{margin:"20px"}}>
  
  
- <div style={{marginTop:(document.getElementById('container-'+uniqueId)?.clientHeight/2)-20 + 'px', width:'9%',float:"left"}}>
+{false &&  <div style={{border :'solid blue 2px',marginTop:(document.getElementById('container-'+uniqueId)?.clientHeight/2)-20 + 'px', width:'9%',float:"left"}}>
    <LetterButton letter="None" onClick={selectNone} style={{float:'right'}}></LetterButton>
   <LetterButton letter="All" onClick={selectAll} style={{float:'right'}} ></LetterButton>
    <div style={{clear:"both"}}></div >
    </div>
+}
+<div style={{ width:'100%', float:"left",textAlign:'center',display: 'flex',
+ justifyContent: 'center',
+ alignItems: 'center'}}>
  
-<div style={{ width:'90%', float:"left",textAlign:'center'}}>
- 
-<div style={{display: 'inline-block'}}>
-     {lettersArray.map((letters,index)=>{return <div style={{float:'left', marginRight:'20px', textAlign:"left"}}><span onClick={()=>selectByIndex(index)} style={{cursor:"pointer"}}>{letters.categoryName} </span>
-       <br /><div style={{border:"solid 2px green", borderRadius:"10%", padding:"20px"}}>
+<div style={{display: 'grid',
+ gridTemplateColumns: '220px 376px 220px 64px',gridColumnGap: '24px'}}>
+     {lettersArray.map((letters,index)=>{return <div style={{  textAlign:"left",width:'100%', visibility:letters.categoryName===''?'hidden':"visible"}}><div onClick={()=>selectByIndex(index)} style={{cursor:"pointer",borderRadius:"5px",padding:"10px", textAlign:"center",backgroundColor:`rgba(${letters.color},1)`,fontWeight:"600"}}>{letters.categoryName} </div>
+       <div style={{ borderRadius:"5px",backgroundColor:'white',display:"flex",flexDirection:"column"}}>
      
   
-       <div style={{display:"flex",flexDirection:"column"}}>   
+     
     
    { letters.subCategories.length ===0 && <Container
        key = {index}
-       style = {letters.style?letters.style:{}}
+       style = {letters.style?{...letters.style, padding:"10px"}:{}}
        letters = {letters.letters}
        selectedLetters = {letters.selectedLetters}
        color = {letters.color}
@@ -149,15 +176,18 @@ window.addEventListener('resize', returnedFunction)})
        >
      </Container>}
     
-       {letters.subCategories.map((subCategoryletters,index2)=>{return <div style={{float:'left', marginRight:'20px'}}>
+       {letters.subCategories.map((subCategoryletters,index2)=>{return <div style={{float:'left'}}>
    
-      {subCategoryletters.subCategoryName}
+    
+    {index2!=0 && <div style={{height:'5px', backgroundColor:'#e1f7fd'}}></div>}
+     <br />
+      <span onClick={()=>selectByIndexAndSubCategory(index,subCategoryletters.letters)} style={{cursor:"pointer",fontWeight:"600",marginLeft:"20px"}}>{subCategoryletters.subCategoryName} </span>
       <br />
-       <br />
-     
+    
+      
       <Container
        key = {index2}
-       style = {letters.style?letters.style:{}}
+       style = {letters.style?{...letters.style, padding:"20px"}:{}}
        letters = {subCategoryletters.letters}
        selectedLetters = {letters.selectedLetters}
        color = {letters.color}
@@ -169,7 +199,7 @@ window.addEventListener('resize', returnedFunction)})
    
     
      </div>})}
-      </div>
+    
      </div></div>})
      }
  

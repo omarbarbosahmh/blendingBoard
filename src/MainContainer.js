@@ -1,5 +1,5 @@
 import Container from "./Container";
-import {useState} from 'react'
+import {useState,useEffect} from 'react'
 export default function MainContainer({lettersConfig,style,emitChoosePreset}) {
  let [lettersArray,setLettersArray] = useState([...lettersConfig])
  let [selectedLetters,setSelectedLetters] = useState([])
@@ -43,6 +43,14 @@ setLettersArray(lettersArray.transformed)
  
   
  }
+ 
+ useEffect(() => {
+   if(localStorage.getItem('selectedPreset')===null){
+     localStorage.setItem('selectedPreset','Default')
+   }
+  choosePreset(localStorage.getItem('selectedPreset'))
+ 
+ }, []);
  return <div style={style? style:{}}>
     <select name="preset" value={selectedPreset} onChange={(e)=>choosePreset(e.target.value)}>
              <option value={'Default'}>Default</option>
@@ -55,10 +63,10 @@ setLettersArray(lettersArray.transformed)
    <div style={{margin:"20px",height:"78vh", overflowY:"auto"}}>
  
 <div style={{ width:'90%', float:"left",textAlign:'center'}}>
-<div style={{display: 'inline-block'}}>
+<div style={{display: 'inline-block',backgroundColor:"white",padding:"24px"}}>
     {lettersArray.map((letters,index)=>{return <Container
        key = {index}
-       style = {letters.style?letters.style:{}}
+       style = {letters.style?{...letters.style,marginRight:'24px'}:{}}
        letters = {letters.letters}
        selectedLetters = {letters.selectedLetters}
        color = {letters.color}
@@ -72,9 +80,10 @@ setLettersArray(lettersArray.transformed)
      </div>
    
 </div>
-<div style={{   float:"left",display: 'inline-block'}}>
+{[...wordHistory].length!=0 && <div style={{   float:"left",display: 'inline-block',backgroundColor:"white",padding:"24px", overflowY:"scroll",maxHeight:"70vh"}}>
    {[...wordHistory].reverse().map(word=>{return <p style={{fontWeight:'600', fontSize:'30px'}}>{word}</p>})}
-</div>
+</div>}
+ 
 <div style={{clear:'both'}}></div>
    </div>
   
@@ -82,5 +91,4 @@ setLettersArray(lettersArray.transformed)
    
  </div>
 }
- 
 

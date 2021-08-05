@@ -6,13 +6,14 @@ export default function LetterButton({color,letter,onClick,selected,blocked,styl
    backgroundColor:blocked?'grey':`rgba(${color},${selected?'1':'0.4'})`,
    cursor: blocked?'no-drop':'pointer',
    fontWeight:600,
-   borderRadius:"10px",
+   borderRadius:"6px",
    display: 'inline-block',
-   padding:'5px 10px',
-   marginRight:'10px',
+   padding:'5px 0px',
+   width:'40px',
+   heigth:'27px',
+  
    ...style
  }
  return <div><div style={style} onClick={()=>blocked?null:onClick(letter)}>{letter}</div></div>
 }
- 
 

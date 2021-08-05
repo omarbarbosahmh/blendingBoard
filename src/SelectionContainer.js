@@ -1,5 +1,6 @@
 import {useState, useEffect,useImperativeHandle,forwardRef} from 'react'
 import SelectionBlock from "./SelectionBlock";
+import "./App.css";
 export default forwardRef((props,ref)=> {
 let {getTransformToMainContainerLetterArrayProps,style}= props
 useImperativeHandle(ref, () => ({
@@ -16,34 +17,39 @@ let [selectedPreset ,setSelectedPreset]=useState(localStorage.getItem('selectedP
    let [reset ,setReset]=useState(false)
    let [uniqueId, setUniqueId] = useState(Date.now())
     let defaultConfigs= [[
-     {categoryName:"Consonants",subCategories:[],letters:['','b','c','d','f','g','h','j','k','l','m','n','p','r','s','t','v','w','y','z'],color:'0,0,255',selectedLetters:['','b','c','d','f','g','h','j','k','l','m','n','p','r','s','t','v','w','y','z'],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(5,auto)',gridGap:'5px',float:'left', marginRight:'20px', width:'300px'}},
-     {categoryName:"Short Vowels",subCategories:[],letters:['e','i','o','u','y'],color:'79, 255, 67',selectedLetters:['e','i','o','u','y'],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(4,auto)',gridGap:'5px',float:'left', marginRight:'20px', width:'300px'}},
-     {categoryName:"Consonants",subCategories:[],letters:['','b','c','d','f','g','h','j','k','l','m','n','p','r','s','t','v','w','y','z'],color:'255,0,0',selectedLetters:['','b','c','d','f','g','h','j','k','l','m','n','p','r','s','t','v','w','y','z'],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(5,auto)',gridGap:'5px',float:'left', marginRight:'20px', width:'300px'}},
-     {categoryName:"Endings",subCategories:[{subCategoryName:"subCategoryName",letters:['e','ed','es','ing','s']}],letters:['e','ed','es','ing','s'],color:'255,0,255',selectedLetters:['e'],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(5,auto)',gridGap:'5px',float:'left', marginRight:'20px', width:'300px'}}
+     {categoryName:"Consonants",subCategories:[],letters:['','b','c','d','f','g','h','i','j','k','l','m','n','p','r','s','t','v','w','y','z'],color:'153, 195, 252',selectedLetters:['','b','c','d','f','g','h','i','j','k','l','m','n','p','r','s','t','v','w','y','z'],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(4,auto)',gridGap:'5px',float:'left'}},
+     {categoryName:"Short Vowels",subCategories:[],letters:['','b','c','d','f','g','h','i','j','k','l','m','n','p','r','s','t','v','w','y','z'],color:'175, 236, 68',selectedLetters:['','b','c','d','f','g','h','i','j','k','l','m','n','p','r','s','t','v','w','y','z'],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(5,auto)',gridGap:'5px',float:'left'}},
+     {categoryName:"Consonants",subCategories:[],letters:['b','d','g','k'],color:'219, 169, 250',selectedLetters:['b','d','g','k'],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(4,auto)',gridGap:'5px',float:'left'}},
+     {categoryName:"End",subCategories:[],letters:['e','ed','es','ing','s'],color:'52, 210, 189',selectedLetters:['e','ed','es','ing','s'],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(1,auto)',gridGap:'5px',float:'left'}}
    ],[
-     {categoryName:"Blends", subCategories:[],letters:['bl','br','cl','cr','dr','fl','fr','gl','gr','pl','pr','sc','scr','shr','sk','sl','sm','sn','sp','spl','squ','st','str','sw','thr','tr'],color:'0,0,255',selectedLetters:[],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(5,auto)',gridGap:'5px',float:'left', marginRight:'20px', width:'300px'}},
-     {categoryName:"Long Vowels", subCategories:[],letters:['a','ai','aigh','ay','e','ea','eau','ee','ei','eigh','ew','ey','i','ie','igh','o','oa','oe','oo','ough','ow','u','ue','ui','y'],color:'79, 255, 67',selectedLetters:[],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(4,auto)',gridGap:'5px',float:'left', marginRight:'20px', width:'300px'}},
-     {categoryName:"Double Consonants", subCategories:[],letters:['bb','dd','ff','gg','ll','mm','nn','pp','rr','ss','tt','zz'],color:'255,0,0',selectedLetters:[],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(5,auto)',gridGap:'5px',float:'left', marginRight:'20px', width:'300px'}},
-     {categoryName:"categoryName", subCategories:[],letters:[],color:'255,0,255',selectedLetters:[],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(5,auto)',gridGap:'5px',float:'left', marginRight:'20px', width:'300px'}}
+     {categoryName:"Blends",subCategories:[{subCategoryName:"Blends with l",letters:['bl','cl','fl','gl','pl','sl','spl']},{subCategoryName:"Blends with r",letters:['br','cr','dr','fr','gr','pr','scr','shr','spr','str','thr','tr']},{subCategoryName:"Blends with s",letters:['sc','sk','sl','sm','sn','sp','spl','spr','squ','st','str','sw']}],letters:['bl','cl','fl','gl','pl','sl','spl','br','cr','dr','fr','gr','pr','scr','shr','spr','str','thr','tr','sc','sk','sl','sm','sn','sp','spl','spr','squ','st','str','sw'],color:'153, 195, 252',selectedLetters:['e','i','o','u','y'],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(4,auto)',gridGap:'5px',float:'left'}},
+     {categoryName:"Long Vowels", subCategories:[{subCategoryName:"Long a", letters:['a','ai','aigh','ay','ea','ei','eigh','ey']},{subCategoryName:"Long e", letters:['e','ea','ee','ey','ie','y']},{subCategoryName:"Long i", letters:['i','ie','igh','y']},{subCategoryName:"Long o", letters:['o','oa','oe','ough','ow']},{subCategoryName:"Long u", letters:['eau','eu','ew','o','oe','oo','ough','u','u','ue','ui']}],letters:['a','ai','aigh','ay','ea','ei','eigh','ey','e','ea','ee','ey','ie','y','i','ie','igh','y','o','oa','oe','ough','ow','eau','eu','ew','o','oe','oo','ough','u','u','ue','ui'],color:'175, 236, 68',selectedLetters:[],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(5,auto)',gridGap:'5px',float:'left'}},
+     {categoryName:"Double Consonants", subCategories:[],letters:['bb','dd','ff','gg','ll','mm','nn','pp','rr','ss','tt','zz'],color:'219, 169, 250',selectedLetters:[],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(4,auto)',gridGap:'5px',float:'left'}},
+     {categoryName:"", subCategories:[],letters:[],color:'52, 210, 189',selectedLetters:[],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(1,auto)',gridGap:'5px',float:'left'}}
    ],[
-     {categoryName:"Consonant Diagraphs", subCategories:[],letters:['ch','gh','gn','kn','ph','qu','sh','th','wh','wr'],color:'0,0,255',selectedLetters:[],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(5,auto)',gridGap:'5px',float:'left', marginRight:'20px', width:'300px'}},
-     {categoryName:"r-Controlled Vowels", subCategories:[],letters:['air','ar','are','ear','eer','er','ir','oar','oor','or','ore','our','ur'],color:'79, 255, 67',selectedLetters:[],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(4,auto)',gridGap:'5px',float:'left', marginRight:'20px', width:'300px'}},
-     {categoryName:"Blends", subCategories:[],letters:['mp','nd','ng','nk','nt','nx','sp','st'],color:'255,0,0',selectedLetters:[],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(5,auto)',gridGap:'5px',float:'left', marginRight:'20px', width:'300px'}},
-     {categoryName:"categoryName", subCategories:[],letters:[],color:'255,0,255',selectedLetters:[],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(5,auto)',gridGap:'5px',float:'left', marginRight:'20px', width:'300px'}}
+     {categoryName:"Consonant DIagraphs", subCategories:[],letters:['ch','gh','gn','kn','ph','qu','sh','sh','th','wh','wr'],color:'153, 195, 252',selectedLetters:[],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(4,auto)',gridGap:'5px',float:'left'}},
+     {categoryName:"r-Controlled Vowels", subCategories:[{subCategoryName:"/ar/", letters:['ar']},{subCategoryName:"/or/", letters:['oar','oor','or','ore','our']},{subCategoryName:"/ur/", letters:['ear','er','ir','ur']},{subCategoryName:"/ar/", letters:['air','are','ear']},{subCategoryName:"/ir/", letters:['ear','eer']}],letters:['ar','oar','oor','or','ore','our','ear','er','ir','ur','ear','er','ir','ur','air','are','ear','ear','eer'],color:'175, 236, 68',selectedLetters:[],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(5,auto)',gridGap:'5px',float:'left'}},
+     {categoryName:"Blends with s", subCategories:[],letters:['sp','st'],color:'219, 169, 250',selectedLetters:[],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(4,auto)',gridGap:'5px',float:'left'}},
+     {categoryName:"", subCategories:[],letters:[],color:'52, 210, 189',selectedLetters:[],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(4,auto)',gridGap:'5px',float:'left'}}
    ],[
-     {categoryName:"Consonant Triagraphs", subCategories:[],letters:['scr','shr','spl','spr','squ','str','thr'],color:'0,0,255',selectedLetters:[],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(5,auto)',gridGap:'5px',float:'left', marginRight:'20px', width:'300px'}},
-     {categoryName:"Vowel Teams", subCategories:[],letters:['au'],color:'79, 255, 67',selectedLetters:[],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(4,auto)',gridGap:'5px',float:'left', marginRight:'20px', width:'300px'}},
-     {categoryName:"Consonant Diagraphs", subCategories:[],letters:['ch','ck','gh','gn','mb','ph','sh','th','ve'],color:'255,0,0',selectedLetters:[],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(5,auto)',gridGap:'5px',float:'left', marginRight:'20px', width:'300px'}},
-     {categoryName:"categoryName", subCategories:[],letters:[],color:'255,0,255',selectedLetters:[],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(5,auto)',gridGap:'5px',float:'left', marginRight:'20px', width:'300px'}}
+     {categoryName:"Consonant Tiagraphs", subCategories:[],letters:['scr','shr','spl','spr'],color:'153, 195, 252',selectedLetters:[],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(4,auto)',gridGap:'5px',float:'left'}},
+     {categoryName:"Vowel Teams", subCategories:[{subCategoryName:"oo", letters:['oo']},{subCategoryName:"oo", letters:['ew','oe','oo','ough','ue','ui']},{subCategoryName:"o", letters:['au','augh','aw','ough']},{subCategoryName:"Long a", letters:['ai','aigh','ay','ea','ei','eigh','ey']},{subCategoryName:"Long e", letters:['ea','ee','ey','ie']},{subCategoryName:"Long i", letters:['ie','igh']},{subCategoryName:"Long o", letters:['oa','oe','ough','ow']},{subCategoryName:"Long u", letters:['eau','eu','ew','oe','oo','ough','ue','ui']}],letters:['oo','ew','oe','oo','ough','ue','ui','au','augh','aw','ough','ai','aigh','ay','ea','ei','eigh','ey','ea','ee','ey','ie','ie','igh','oa','oe','ough','ow','eau','eu','ew','oe','oo','ough','ue','ui'],color:'175, 236, 68',selectedLetters:[],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(5,auto)',gridGap:'5px',float:'left'}},
+     {categoryName:"Other Blends", subCategories:[],letters:['mp','nd','ng','nk','nt','nx'],color:'219, 169, 250',selectedLetters:[],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(4,auto)',gridGap:'5px',float:'left'}},
+     {categoryName:"", subCategories:[],letters:[],color:'52, 210, 189',selectedLetters:[],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(1,auto)',gridGap:'5px',float:'left'}}
    ],[
-      {categoryName:"categoryName", subCategories:[],letters:['gn','kn','wr','qu'],color:'0,0,255',selectedLetters:[],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(5,auto)',gridGap:'5px',float:'left', marginRight:'20px', width:'300px'}},
-      {categoryName:"Diphthongs", subCategories:[],letters:['oi','ou','ow','oy'],color:'79, 255, 67',selectedLetters:[],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(4,auto)',gridGap:'5px',float:'left', marginRight:'20px', width:'300px'}},
-      {categoryName:"Consonant Tiagraphs", subCategories:[],letters:['dge','tch'],color:'255,0,0',selectedLetters:[],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(5,auto)',gridGap:'5px',float:'left', marginRight:'20px', width:'300px'}},
-      {categoryName:"categoryName", subCategories:[],letters:[],color:'255,0,255',selectedLetters:[],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(5,auto)',gridGap:'5px',float:'left', marginRight:'20px', width:'300px'}}
-    ]]
-    
+      {categoryName:"", subCategories:[],letters:[],color:'153, 195, 252',selectedLetters:[],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(4,auto)',gridGap:'5px',float:'left'}},
+      {categoryName:"Diphthongs", subCategories:[{subCategoryName:"/ou/", letters:['ou','ow']},{subCategoryName:"/oi/", letters:['oi','oy']}],letters:['ou','ow','oi','oy'],color:'175, 236, 68',selectedLetters:[],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(5,auto)',gridGap:'5px',float:'left'}},
+      {categoryName:"Consonant Diagraphs", subCategories:[],letters:['ch','ck','gh','gn','mb','ph','sh','th','ve'],color:'219, 169, 250',selectedLetters:[],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(4,auto)',gridGap:'5px',float:'left'}},
+      {categoryName:"", subCategories:[],letters:[],color:'52, 210, 189',selectedLetters:[],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(1,auto)',gridGap:'5px',float:'left'}}
+    ],[
+     {categoryName:"", subCategories:[],letters:[],color:'153, 195, 252',selectedLetters:[],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(4,auto)',gridGap:'5px',float:'left'}},
+     {categoryName:"", subCategories:[],letters:[],color:'175, 236, 68',selectedLetters:[],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(5,auto)',gridGap:'5px',float:'left'}},
+     {categoryName:"Consonant Tiagrpahs", subCategories:[],letters:['dge','tch'],color:'219, 169, 250',selectedLetters:[],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(4,auto)',gridGap:'5px',float:'left'}},
+     {categoryName:"", subCategories:[],letters:[],color:'52, 210, 189',selectedLetters:[],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(1,auto)',gridGap:'5px',float:'left'}}
+   ]]
+  
    let [initialConfigs,setInitialConfigs] =useState(defaultConfigs)
-   //subCategories:[{subCategoryName:"subcategoryName", letters:[]}]
+ 
  let initialLettersByColor ={}
  let allLettersByColorAndRow = []
 let allLetters = [...initialConfigs].map((initialConfigObj,index)=>{
@@ -151,7 +157,7 @@ let transformToMainContainerLetterArrayProps = (allSelectedLettersByColor)=>{
    let transformed=[]
    for(var k in allSelectedLettersByColor) {
  
-       let lettersConfig = {letters:allSelectedLettersByColor[k].selectedLetters,color:k,selectedLetters:[],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(5,auto)',gridGap:'5px',float:'left', marginRight:'20px'}}
+       let lettersConfig = {letters:allSelectedLettersByColor[k].selectedLetters,color:k,selectedLetters:[],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(5,auto)',gridGap:'5px',float:'left'}}
        transformed.push(lettersConfig)
 }
 //console.log(transformed)
@@ -166,7 +172,7 @@ let savePreset = ()=>{
      let transformed=[]
    for(var k in allSelectedLettersByColor) {
  
-       let lettersConfig = {letters:allSelectedLettersByColor[k].selectedLetters,color:k,selectedLetters:[],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(5,auto)',gridGap:'5px',float:'left', marginRight:'20px'}}
+       let lettersConfig = {letters:allSelectedLettersByColor[k].selectedLetters,color:k,selectedLetters:[],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(5,auto)',gridGap:'5px',float:'left'}}
        transformed.push(lettersConfig)
 }
 let presets=localStorage.getItem('presets');
@@ -199,7 +205,7 @@ let choosePreset = (presetName)=>{
  localStorage.setItem('selectedPreset', presetName)
  setSelectedPreset(presetName);
  
- if(presetName==='Default'){
+ if(presetName==='Default' || !localStorage.getItem(presetName) ){
    setInitialConfigs(defaultConfigs)
    initialConfigs=[...defaultConfigs]
    setAllSelectedLetters(defaultConfigs)
@@ -264,19 +270,12 @@ useEffect(() => {
      let transformed=[]
    for(var k in initialLettersByColor) {
  
-       let lettersConfig = {letters:initialLettersByColor[k].selectedLetters,color:k,selectedLetters:[],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(5,auto)',gridGap:'5px',float:'left', marginRight:'20px'}}
+       let lettersConfig = {letters:initialLettersByColor[k].selectedLetters,color:k,selectedLetters:[],blockedLetters:[],style:{display:'grid', gridTemplateColumns:'repeat(5,auto)',gridGap:'5px',float:'left'}}
        transformed.push(lettersConfig)
 }
  
 localStorage.setItem('Default', JSON.stringify({preset:allSelectedLettersByColor,transformed}))
-let presetX = localStorage.getItem('selectedPreset')
-if (!presetX || presetX === 'null')
-{
-  presetX = 'Default'
-}else{
-  presetX = localStorage.getItem('selectedPreset')
-}
-  choosePreset(presetX)
+  choosePreset(localStorage.getItem('selectedPreset'))
  
  }, []);
  return <div style={style? style:{}}>
@@ -293,9 +292,9 @@ if (!presetX || presetX === 'null')
          </div>
         <div style={{textAlign:'center',fontWeight:'600',fontSize:"80px"}}>
     
-     {allSelectedLetters.flat(1).length} Selected
+     {/* {allSelectedLetters.flat(1).length} Selected */}
    </div>
-  <div style={{ height:"78vh", overflowY:"auto"}}>
+  <div style={{ height:"78vh", overflowY:"auto", overflowX:"hidden",width:'70%',margin: '20px auto'}}>
  {!reset && initialConfigs.map((initialConfig,index)=><SelectionBlock uniqueId={index} initialConfig={initialConfig} desSelectLetterByColor={desSelectLetterByColor} getSelectedLettersByColor={getSelectedLettersByColor} getSelectedAllOrNoneLettersByColor={(allOrNone)=>getSelectedAllOrNoneLettersByColor(allOrNone,index)} getAllSelectedLetters={(lettersArray)=>getAllSelectedLetters(lettersArray,index)}></SelectionBlock>)}
  </div>
   
@@ -304,7 +303,6 @@ if (!presetX || presetX === 'null')
  </div>
  
 })
- 
  
  
 

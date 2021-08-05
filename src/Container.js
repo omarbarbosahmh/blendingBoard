@@ -2,7 +2,7 @@ import LetterButton from "./LetterButton";
 export default function Container({letters,selectedLetters,color,onLetterClick,blockedLetters,style}) {
  
  
- return <div style={style?style:{}}>{letters.map((letter,index)=>{return  <LetterButton
+ return <div style={style?{...style}:{}}>{letters.map((letter,index)=>{return  <LetterButton
        key={index}
        color={color}
        letter={letter}
